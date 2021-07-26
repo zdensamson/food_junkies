@@ -1,76 +1,121 @@
   // randomly generates a meal based on MEAL NAME
   var randomMealName = "https://themealdb.com/api/json/v1/1/random.php?search.php?s=milk&1";
-  // generat meal based on INGREDIENT
-  var ingredientName = "https://themealdb.com/api/json/v1/1/filter.php?i=eggs"
+  // generate meal(s) based on INGREDIENT
+  var ingredientName = "https://themealdb.com/api/json/v1/1/filter.php?i=mustard";
   // generate meal based on ID
-  var mealIdSearch = "https://themealdb.com/api/json/v1/1/lookup.php?i=53049"
+  var mealIdSearch = "https://themealdb.com/api/json/v1/1/lookup.php?i=";
+  // generate ALL possible INGREDIENTS
+  var allIng = 'https://www.themealdb.com/api/json/v2/9973533/list.php?i=list';
 
-// mustard only give 6 recipes
-
-//TESTER-------------------------------------------------------------//
-  // fetch("https://themealdb.com/api/json/v1/1/filter.php?i=mustard")
-  // .then(function(response) {
-  //   // request was successful
-  //   if (response.ok) {
-  //     response.json().then(function(data) {
-  //       console.log(data);
-  //       if(!data.meals){
-  //         alert("Didn't find it");
-  //       }
-  //       // console.log(data.meals.length);
-  //       storeRecipes(data);
-  //     });
-  //   } else {
-  //     alert('This food does not exist');
-  //   }
-  // })
-  // .catch(function(error) {
-  //   alert("Unable to connect");
-  // });
-//TESTER END -----------------------------------------------------//
 
 
   // <input> element 
-  var ingSearch = document.getElementById("ing-search");
+  var inputEl = document.getElementById("ing-search");
   // <button> element
   var searchBtnEl = document.getElementById("search-btn");
-  // recipe list holder
-  var recipeListEl = document.getElementById("recipeList");
+  // ingredient list holder
+  var ingListEl = document.getElementById("ingList");
 
   // base URL
   var baseUrl = "https://themealdb.com/api/json/v1/1/";
 
 // TO UPDATE START
 // use get recipes to collect the total count of meals given a specific ingredient && pass to create index
+// change ingList and validIng to objects to store the INGREDIENT ID
 // TO UPDATE END
-  function getRecipes(event){
-    console.log(ingSearch.value);
-    var userIng = ingSearch.value;
-    var ingredient = "filter.php?i=" + userIng;
-    var ingUrl = baseUrl + ingredient;
 
-    fetch(ingUrl)
-    .then(function(response) {
-      // request was successful
-      if (response.ok) {
-        response.json().then(function(data) {
-          console.log(data);
-          if(!data.meals){
-            alert("I didn't find that");
-          }
-          // console.log(data.meals.length);
-          storeRecipes(data);
-        });
-      } else {
-        alert('This food does not exist');
+// this list will hold all possible ingredient NAME's
+ingList = [];
+// this list will hold all possible ingredient ID's
+ingId = [];
+
+// this list will hold only ingredients that contain the user's search term 
+validIng = [];
+validIngId = [];
+
+// function that triggers when user clicks on search button
+function ingSearch(event){
+  ingList = [];
+  validIng = [];
+  ingListEl.innerHTML = "";
+  var userIng = inputEl.value;
+  getIngredients(userIng);
+}
+
+// pings the MealDB api to grab all ingredients
+function getIngredients(searchTerm){
+  fetch(allIng)
+  .then(function(response) {
+    // request was successful
+    if (response.ok) {
+      response.json().then(function(data) {
+        // passes along all ingredients and user's desired ingredient
+        ingStore(data.meals, searchTerm);
+      });
+    } 
+  })
+  .catch(function(error) {
+    alert("Unable to connect");
+  });
+}
+
+// creates a list of all ingredients STORED IN "ingList"
+function ingStore(apiData, searchTerm){
+    for(i=0; i<apiData.length; i++){
+        ingList.push(apiData[i].strIngredient);
+        ingId.push(apiData[i].idIngredient);
+    }
+    //passes along the user search term
+    ingParse(searchTerm);
+}
+
+// finds all ingredients that CONTAIN the user's search term
+function ingParse(searchTerm){
+    for(i=0; i<ingList.length; i++){
+        // checks if the all lower case USER INPUT is contained in the INGREDIENT LIST
+        if(ingList[i].toLowerCase().includes(searchTerm.toLowerCase())){
+            // stores all SIMILAR ingredients in the var "validIng"
+            validIng.push(ingList[i]);
+            validIngId.push(ingId[i]);
+        }
+    }
+    console.log(validIng);
+    if(validIng == ""){
+      var ingEl = document.createElement("div");
+      ingEl.textContent = "There are no recipe's in our database with this ingredient";
+      ingListEl.appendChild(ingEl);
+    }
+    else{
+      for(i=0; i<validIng.length; i++){
+        var ingEl = document.createElement("div");
+        ingEl.setAttribute("id", i);
+        ingEl.classList.add("ingredient");
+
+        var ingName = document.createElement("p");
+        ingName.classList.add("ingredient-name")
+        ingName.textContent = validIng[i];
+      
+        var recipeBtnEl = document.createElement("button");
+        recipeBtnEl.textContent = "Get recipe(s)";
+
+        ingEl.appendChild(ingName);
+        ingEl.appendChild(recipeBtnEl);
+        ingListEl.appendChild(ingEl);
       }
-    })
-    .catch(function(error) {
-      alert("Unable to connect");
-    });
+    }
+}
 
-  };
-  
+
+// grabs the name of the ingredient where users clicked "GET RECIPE(S)"
+function selectIng(event){
+  var selectedIng = $(this)
+    .closest(".ingredient");
+  var ingName = selectedIng.children(".ingredient-name")
+    .text();
+  console.log(ingName);
+}
+
+  // maybe delete this
   function createIndex() {
     var indexSelect = [];
     for(i=0; i<5; i++){
@@ -90,21 +135,8 @@
     }
     return z;
   }
-  function storeRecipes(data){
-    var indexSelect = [];
-    indexSelect = createIndex();
-    console.log(indexSelect);
 
-    for(i=0; i < indexSelect.length; i++) {
-      var mealName = data.meals[indexSelect[i]].strMeal;
-      var mealId = data.meals[indexSelect[i]].idMeal;
-      console.log(mealName);
-      console.log(mealId);
-    }
-  };
-
-
-
-
-  searchBtnEl.addEventListener("click", getRecipes);
-
+// listens for user "click" on submit button
+  searchBtnEl.addEventListener("click", ingSearch);
+// listens for user "click" on ingrediet element
+  $(ingListEl).on("click", "button", selectIng);
