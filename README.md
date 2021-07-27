@@ -3,20 +3,15 @@
 Title (in progress): Food Junkies
 
 Description: 
-    An application to help user's make up their mind on "what's for dinner/lunch". 
+    An application to help user's use ingridients in their fridge and pantry.
 
 User story: 
-    AS A        consumer who likes going out to eat/ordering in
-    I WANT      an application that helps narrow down my dinning options
-    SO THAT     I can find a restaurant that sounds "good"   
+    AS A        consumer who has expiring ingridinets in thir fridge
+    I WANT      an application that helps give me recipes with the ingrdints
+    SO THAT     I can use the ingridients befor ehtey expire 
 
 MVP Acceptance Criteria:  
-    -The user gives their location. 
-    The application provides users with a RANDOM # of generic food "categories" (Mexican, Thai, American comfort, etc).
-
-    -The user selects (and de-selects) what categories they are "in the mood for".
-    The application pulls 1-2 restaurants for each category based on REVIEWS (or some other criteria). 
+    -The user gives their ingridients
+    The application provides users with a number of recipes they can make with that ingridient
     
-    -The user can click on a restaurant and be provided with a menu. 
-    
-    -The user can save spots that they like.
+    -The application provide users with nutrition facts about that recipe along with a video of the recipe
