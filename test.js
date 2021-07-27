@@ -1,12 +1,17 @@
   // randomly generates a meal based on MEAL NAME
   var randomMealName = "https://themealdb.com/api/json/v1/1/random.php?search.php?s=milk&1";
-  // generate meal(s) based on INGREDIENT
-  var ingredientName = "https://themealdb.com/api/json/v1/1/filter.php?i=mustard";
   // generate meal based on ID
   var mealIdSearch = "https://themealdb.com/api/json/v1/1/lookup.php?i=";
+  // base URL
+  var baseUrl = "https://themealdb.com/api/json/v1/1/";
+
+
+
+
   // generate ALL possible INGREDIENTS
   var allIng = 'https://www.themealdb.com/api/json/v2/9973533/list.php?i=list';
-
+  // generate meal(s) based on INGREDIENT
+  var mealIngSearch = "https://themealdb.com/api/json/v1/1/filter.php?i=";
 
 
   // <input> element 
@@ -16,8 +21,7 @@
   // ingredient list holder
   var ingListEl = document.getElementById("ingList");
 
-  // base URL
-  var baseUrl = "https://themealdb.com/api/json/v1/1/";
+
 
 // TO UPDATE START
 // use get recipes to collect the total count of meals given a specific ingredient && pass to create index
@@ -38,6 +42,10 @@ function ingSearch(event){
   ingList = [];
   validIng = [];
   ingListEl.innerHTML = "";
+  var ingH2El = document.createElement("h2");
+  ingH2El.textContent = "Ingredients";
+  ingListEl.appendChild(ingH2El);
+  
   var userIng = inputEl.value;
   getIngredients(userIng);
 }
@@ -86,10 +94,12 @@ function ingParse(searchTerm){
       ingListEl.appendChild(ingEl);
     }
     else{
+      // dynamically generates list of ingredients
       for(i=0; i<validIng.length; i++){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
         ingEl.classList.add("ingredient");
+        ingEl.setAttribute("data-ingId", validIngId[i]);
 
         var ingName = document.createElement("p");
         ingName.classList.add("ingredient-name")
@@ -112,7 +122,25 @@ function selectIng(event){
     .closest(".ingredient");
   var ingName = selectedIng.children(".ingredient-name")
     .text();
-  console.log(ingName);
+  getRecipes(ingName);
+}
+
+// takes the ingredient name from the user's selected ingredient and FETCHes corresponding recipes
+function getRecipes(ingredient){
+  ingredient = ingredient.replace(" ","_");
+  var ingUrl = mealIngSearch + ingredient;
+  fetch(ingUrl)
+  .then(function(response) {
+    // request was successful
+    if (response.ok) {
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    } 
+  })
+  .catch(function(error) {
+    alert("Unable to connect");
+  });
 }
 
   // maybe delete this
