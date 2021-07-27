@@ -1,5 +1,63 @@
+:root {
+    --orange-yellow: #ffc824;
+    --french-raspberry: #BA3B46;
+    --black: #010001;
+    --street-teal: #607B7D;
+    --mint-cream: #EFF6EE;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background-image: linear-gradient(to right, var(--orange-yellow), var(--french-raspberry) );
+    margin: 0;
+    padding: 0;
+}
+
+header h1 {
+    display: flex;
+    justify-content: center;
+    background-color: var(--street-teal);
+    margin: 0px;
+    padding: 0px;
+}
+
 .simple-border {
+    display: flex;
+    justify-content: center;
     border-style: solid;
     border-width: 3px;
     border-radius: 5px;
 }
+
+#ingList,
+#recipeList{
+background-color: var(--mint-cream);
+}
+
+
+
+
+
+
+
+
+/* Mobile first queries */
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
