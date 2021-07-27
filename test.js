@@ -20,6 +20,8 @@
   var searchBtnEl = document.getElementById("search-btn");
   // ingredient list holder
   var ingListEl = document.getElementById("ingList");
+  // recipe list holder
+  var recipeListEl = document.getElementById("recipeList");
 
 
 
@@ -42,10 +44,11 @@ function ingSearch(event){
   ingList = [];
   validIng = [];
   ingListEl.innerHTML = "";
+  clearRecipes();
   var ingH2El = document.createElement("h2");
   ingH2El.textContent = "Ingredients";
   ingListEl.appendChild(ingH2El);
-  
+
   var userIng = inputEl.value;
   getIngredients(userIng);
 }
@@ -74,11 +77,11 @@ function ingStore(apiData, searchTerm){
         ingId.push(apiData[i].idIngredient);
     }
     //passes along the user search term
-    ingParse(searchTerm);
+    displayIng(searchTerm);
 }
 
 // finds all ingredients that CONTAIN the user's search term
-function ingParse(searchTerm){
+function displayIng(searchTerm){
     for(i=0; i<ingList.length; i++){
         // checks if the all lower case USER INPUT is contained in the INGREDIENT LIST
         if(ingList[i].toLowerCase().includes(searchTerm.toLowerCase())){
@@ -134,13 +137,48 @@ function getRecipes(ingredient){
     // request was successful
     if (response.ok) {
       response.json().then(function(data) {
-        console.log(data);
+        // console.log(data);
+        displayRecipes(data,ingredient);
       });
     } 
   })
   .catch(function(error) {
     alert("Unable to connect");
   });
+}
+
+function clearRecipes(){
+  recipeListEl.innerHTML = "";
+  var recH2El = document.createElement("h2");
+  recH2El.textContent = "Recipes";
+  recipeListEl.appendChild(recH2El);
+}
+
+function displayRecipes(apiData, ingredient){
+  clearRecipes();
+  recipeList = [];
+  for(i=0; i<apiData.meals.length; i++){
+    recipeList.push(apiData.meals[i].strMeal);
+  }
+  console.log(recipeList.length);
+  console.log(ingredient);
+  if(recipeList.length < 5){
+    for(i=0; i<recipeList.length; i++){
+      var recipe = document.createElement("div");
+
+      var recipeName = document.createElement("p");
+      recipeName.textContent = recipeList[i];
+
+      var recipeBtnEl = document.createElement("button");
+      recipeBtnEl.textContent = "Get Details";
+
+      recipe.appendChild(recipeName);
+      recipe.appendChild(recipeBtnEl);
+      recipeListEl.appendChild(recipe);
+    }
+    
+  }
+
 }
 
   // maybe delete this
