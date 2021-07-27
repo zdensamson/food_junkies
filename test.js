@@ -28,6 +28,8 @@
 ingList = [];
 // this list will hold all possible ingredient ID's
 ingId = [];
+// this list will hold all recipe's associated with selected ingredient
+recipeList =[];
 
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
@@ -148,6 +150,7 @@ function clearRecipes(){
   recipeListEl.appendChild(recH2El);
 }
 
+
 function displayRecipes(apiData, ingredient){
   clearRecipes();
   recipeList = [];
@@ -185,32 +188,54 @@ function displayRecipes(apiData, ingredient){
       } 
     }
     else {
-      var recFormEl = document.createElement("div");
-
-      var recTextEl = document.createElement("p");
-      recTextEl.textContent = "There are " + recipeList.length + " recipes that use " + ingredient + ". How many would you like to display?";
-      
-      var recSelectEl = document.createElement("select");
-      for(i=1; i<recipeList.length+1; i++){
-        recSelectEl.options[recSelectEl.options.length] = new Option(i, i);
-      }
-      
-
-      var recBtnEl = document.createElement("button");
-      recBtnEl.classList.add("recipe-num")
-      recBtnEl.textContent = "Generate desired recipes"
-
-      recFormEl.appendChild(recTextEl);
-      recFormEl.appendChild(recSelectEl);
-      recFormEl.appendChild(recBtnEl);
-      recipeListEl.appendChild(recFormEl);
-
+      largeRecNum(ingredient);
     }
   }
 }
 
+function largeRecNum(ingredient){
+  clearRecipes();
+  // put this in its own function (MANY RECIPES)
+  var recFormEl = document.createElement("div");
+
+  var recTextEl = document.createElement("p");
+  recTextEl.textContent = "There are " + recipeList.length + " recipes that use " + ingredient + ". How many would you like to display?";
+
+  var recSelectEl = document.createElement("select");
+  recSelectEl.id = "rec-select-num";
+  for(i=1; i<recipeList.length+1; i++){
+    recSelectEl.options[recSelectEl.options.length] = new Option(i, i);
+  }
+
+
+  var recBtnEl = document.createElement("button");
+  recBtnEl.classList.add("recipe-num")
+  recBtnEl.textContent = "Generate desired recipes"
+
+  recFormEl.appendChild(recTextEl);
+  recFormEl.appendChild(recSelectEl);
+  recFormEl.appendChild(recBtnEl);
+  recipeListEl.appendChild(recFormEl);
+};
+
 function selectRecNum(event){
-  console.log("click");
+  var selectNum = document.getElementById("rec-select-num");
+  largeRecNum();
+
+  for(i=0; i<selectNum.value; i++){
+    var recipe = document.createElement("div");
+
+    var recipeName = document.createElement("p");
+    recipeName.textContent = recipeList[i];
+
+    var recipeBtnEl = document.createElement("button");
+    recipeBtnEl.textContent = "Get Details";
+
+    recipe.appendChild(recipeName);
+    recipe.appendChild(recipeBtnEl);
+    recipeListEl.appendChild(recipe);
+  } 
+  
 };
 
   // maybe delete this
