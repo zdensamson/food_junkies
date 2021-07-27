@@ -24,12 +24,6 @@
   var recipeListEl = document.getElementById("recipeList");
 
 
-
-// TO UPDATE START
-// use get recipes to collect the total count of meals given a specific ingredient && pass to create index
-// change ingList and validIng to objects to store the INGREDIENT ID
-// TO UPDATE END
-
 // this list will hold all possible ingredient NAME's
 ingList = [];
 // this list will hold all possible ingredient ID's
@@ -93,7 +87,7 @@ function displayIng(searchTerm){
     console.log(validIng);
     if(validIng == ""){
       var ingEl = document.createElement("div");
-      ingEl.textContent = "There are no recipe's in our database with this ingredient";
+      ingEl.textContent = "There are no recipe's in our database with " + searchTerm + ".";
       ingListEl.appendChild(ingEl);
     }
     else{
@@ -108,11 +102,11 @@ function displayIng(searchTerm){
         ingName.classList.add("ingredient-name")
         ingName.textContent = validIng[i];
       
-        var recipeBtnEl = document.createElement("button");
-        recipeBtnEl.textContent = "Get recipe(s)";
+        var ingBtnEl = document.createElement("button");
+        ingBtnEl.textContent = "Get recipe(s)";
 
         ingEl.appendChild(ingName);
-        ingEl.appendChild(recipeBtnEl);
+        ingEl.appendChild(ingBtnEl);
         ingListEl.appendChild(ingEl);
       }
     }
@@ -157,29 +151,67 @@ function clearRecipes(){
 function displayRecipes(apiData, ingredient){
   clearRecipes();
   recipeList = [];
-  for(i=0; i<apiData.meals.length; i++){
-    recipeList.push(apiData.meals[i].strMeal);
+  console.log(apiData);
+  if(apiData.meals == null){
+    var recipe = document.createElement("div");
+  
+    var recipeName = document.createElement("p");
+    ingredient = ingredient.replace("_"," ");
+    recipeName.textContent = "There are presently no recipes including " + ingredient + ".";
+
+    recipe.appendChild(recipeName);
+    recipeListEl.appendChild(recipe);
   }
-  console.log(recipeList.length);
-  console.log(ingredient);
-  if(recipeList.length < 5){
-    for(i=0; i<recipeList.length; i++){
-      var recipe = document.createElement("div");
 
-      var recipeName = document.createElement("p");
-      recipeName.textContent = recipeList[i];
-
-      var recipeBtnEl = document.createElement("button");
-      recipeBtnEl.textContent = "Get Details";
-
-      recipe.appendChild(recipeName);
-      recipe.appendChild(recipeBtnEl);
-      recipeListEl.appendChild(recipe);
+  else{
+    for(i=0; i<apiData.meals.length; i++){
+      recipeList.push(apiData.meals[i].strMeal);
     }
-    
-  }
+    console.log(recipeList.length);
+    console.log(ingredient);
+    if(recipeList.length < 6){
+      for(i=0; i<recipeList.length; i++){
+        var recipe = document.createElement("div");
+  
+        var recipeName = document.createElement("p");
+        recipeName.textContent = recipeList[i];
+  
+        var recipeBtnEl = document.createElement("button");
+        recipeBtnEl.textContent = "Get Details";
+  
+        recipe.appendChild(recipeName);
+        recipe.appendChild(recipeBtnEl);
+        recipeListEl.appendChild(recipe);
+      } 
+    }
+    else {
+      var recFormEl = document.createElement("div");
 
+      var recTextEl = document.createElement("p");
+      recTextEl.textContent = "There are " + recipeList.length + " recipes that use " + ingredient + ". How many would you like to display?";
+      
+      var recSelectEl = document.createElement("select");
+      for(i=1; i<recipeList.length+1; i++){
+        recSelectEl.options[recSelectEl.options.length] = new Option(i, i);
+      }
+      
+
+      var recBtnEl = document.createElement("button");
+      recBtnEl.classList.add("recipe-num")
+      recBtnEl.textContent = "Generate desired recipes"
+
+      recFormEl.appendChild(recTextEl);
+      recFormEl.appendChild(recSelectEl);
+      recFormEl.appendChild(recBtnEl);
+      recipeListEl.appendChild(recFormEl);
+
+    }
+  }
 }
+
+function selectRecNum(event){
+  console.log("click");
+};
 
   // maybe delete this
   function createIndex() {
@@ -203,6 +235,9 @@ function displayRecipes(apiData, ingredient){
   }
 
 // listens for user "click" on submit button
-  searchBtnEl.addEventListener("click", ingSearch);
+searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
-  $(ingListEl).on("click", "button", selectIng);
+$(ingListEl).on("click", "button", selectIng);
+// listens for recipe # select button
+$(recipeListEl).on("click", "button.recipe-num", selectRecNum);
+
