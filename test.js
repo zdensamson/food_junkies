@@ -1,28 +1,25 @@
-  // randomly generates a meal based on MEAL NAME
-  var randomMealName = "https://themealdb.com/api/json/v1/1/random.php?search.php?s=milk&1";
-  // generate meal based on ID
-  var mealIdSearch = "https://themealdb.com/api/json/v1/1/lookup.php?i=";
-  // base URL
-  var baseUrl = "https://themealdb.com/api/json/v1/1/";
+// generate ALL possible INGREDIENTS
+var allIng = 'https://www.themealdb.com/api/json/v2/9973533/list.php?i=list';
+// generate meal(s) based on INGREDIENT
+var mealIngSearch = "https://themealdb.com/api/json/v1/1/filter.php?i=";
+// generate meal DETAILS based on meal NAME
+var mealNameSearch = "https://themealdb.com/api/json/v1/1/search.php?s=";
 
+// <input> element 
+var inputEl = document.getElementById("ing-search");
+// <button> element
+var searchBtnEl = document.getElementById("search-btn");
+// ingredient list holder
+var ingListEl = document.getElementById("ingList");
+// recipe list holder
+var recipeListEl = document.getElementById("recipeList");
 
-
-
-  // generate ALL possible INGREDIENTS
-  var allIng = 'https://www.themealdb.com/api/json/v2/9973533/list.php?i=list';
-  // generate meal(s) based on INGREDIENT
-  var mealIngSearch = "https://themealdb.com/api/json/v1/1/filter.php?i=";
-
-
-  // <input> element 
-  var inputEl = document.getElementById("ing-search");
-  // <button> element
-  var searchBtnEl = document.getElementById("search-btn");
-  // ingredient list holder
-  var ingListEl = document.getElementById("ingList");
-  // recipe list holder
-  var recipeListEl = document.getElementById("recipeList");
-
+// TO UPDATE START //
+// 1. Handle a search of an empty string (current returns EVERY ingredient)
+// 2. Refactor to reduce qty of code (same actions show up in more than one function)
+// 3. some kind of modal to display user selected recipe detail 
+// 4. a way to save and display certain recipes
+// TO UPDATE END //
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -46,6 +43,7 @@ function ingSearch(event){
   ingListEl.appendChild(ingH2El);
 
   var userIng = inputEl.value;
+  inputEl.value = "";
   getIngredients(userIng);
 }
 
@@ -76,7 +74,7 @@ function ingStore(apiData, searchTerm){
     displayIng(searchTerm);
 }
 
-// finds all ingredients that CONTAIN the user's search term
+// appends all ingredient's related to user input to the DOM
 function displayIng(searchTerm){
     for(i=0; i<ingList.length; i++){
         // checks if the all lower case USER INPUT is contained in the INGREDIENT LIST
@@ -87,6 +85,7 @@ function displayIng(searchTerm){
         }
     }
     console.log(validIng);
+    // alerts the user that their ingredient didn't result in a successful search 
     if(validIng == ""){
       var ingEl = document.createElement("div");
       ingEl.textContent = "There are no recipe's in our database with " + searchTerm + ".";
@@ -114,7 +113,6 @@ function displayIng(searchTerm){
     }
 }
 
-
 // grabs the name of the ingredient where users clicked "GET RECIPE(S)"
 function selectIng(event){
   var selectedIng = $(this)
@@ -133,7 +131,6 @@ function getRecipes(ingredient){
     // request was successful
     if (response.ok) {
       response.json().then(function(data) {
-        // console.log(data);
         displayRecipes(data,ingredient);
       });
     } 
@@ -143,6 +140,7 @@ function getRecipes(ingredient){
   });
 }
 
+// deletes all currently displayed recipes
 function clearRecipes(){
   recipeListEl.innerHTML = "";
   var recH2El = document.createElement("h2");
@@ -150,36 +148,40 @@ function clearRecipes(){
   recipeListEl.appendChild(recH2El);
 }
 
-
+// displays all recipe names associated with user ingredient (if there are less than 6)
 function displayRecipes(apiData, ingredient){
   clearRecipes();
   recipeList = [];
-  console.log(apiData);
+ 
+  // gives the user a message if no recipes return from ingredient search
   if(apiData.meals == null){
     var recipe = document.createElement("div");
+    recipe.id = "recipe-card";
   
     var recipeName = document.createElement("p");
+    recipeName.id = "rec-name";
     ingredient = ingredient.replace("_"," ");
     recipeName.textContent = "There are presently no recipes including " + ingredient + ".";
 
     recipe.appendChild(recipeName);
     recipeListEl.appendChild(recipe);
   }
-
   else{
     for(i=0; i<apiData.meals.length; i++){
       recipeList.push(apiData.meals[i].strMeal);
     }
-    console.log(recipeList.length);
-    console.log(ingredient);
+    // automatically displays all recipes if there are less than 6 associated with an ingredient
     if(recipeList.length < 6){
       for(i=0; i<recipeList.length; i++){
         var recipe = document.createElement("div");
+        recipe.id = "recipe-card";
   
         var recipeName = document.createElement("p");
+        recipeName.id = "rec-name";
         recipeName.textContent = recipeList[i];
   
         var recipeBtnEl = document.createElement("button");
+        recipeBtnEl.id = "rec-detail-btn";
         recipeBtnEl.textContent = "Get Details";
   
         recipe.appendChild(recipeName);
@@ -193,13 +195,16 @@ function displayRecipes(apiData, ingredient){
   }
 }
 
+// displays desired # of recipe names to user
 function largeRecNum(ingredient){
   clearRecipes();
-  // put this in its own function (MANY RECIPES)
+  
   var recFormEl = document.createElement("div");
+  recFormEl.id = "recipe-card";
 
   var recTextEl = document.createElement("p");
-  recTextEl.textContent = "There are " + recipeList.length + " recipes that use " + ingredient + ". How many would you like to display?";
+  recTextEl.id = "rec-name";
+  recTextEl.textContent = "There are " + recipeList.length + " recipes that contain " + ingredient + ". How many would you like to display?";
 
   var recSelectEl = document.createElement("select");
   recSelectEl.id = "rec-select-num";
@@ -218,17 +223,21 @@ function largeRecNum(ingredient){
   recipeListEl.appendChild(recFormEl);
 };
 
+// gives the user the option to choose how many recipes to view if more than 6 exist
 function selectRecNum(event){
   var selectNum = document.getElementById("rec-select-num");
   largeRecNum();
 
   for(i=0; i<selectNum.value; i++){
     var recipe = document.createElement("div");
+    recipe.id = "recipe-card";
 
     var recipeName = document.createElement("p");
+    recipeName.id = "rec-name";
     recipeName.textContent = recipeList[i];
 
     var recipeBtnEl = document.createElement("button");
+    recipeBtnEl.id = "rec-detail-btn";
     recipeBtnEl.textContent = "Get Details";
 
     recipe.appendChild(recipeName);
@@ -238,31 +247,38 @@ function selectRecNum(event){
   
 };
 
-  // maybe delete this
-  function createIndex() {
-    var indexSelect = [];
-    for(i=0; i<5; i++){
-      var x = Math.floor(Math.random()*40)+1;
-      indexSelect.push(x);
-    }
-    
-    var y = new Set(indexSelect);
-    console.log(y);
-    if(indexSelect.length > y.size){
-      createIndex();
-    }
-    else{
-    console.log("DONE");
-    console.log(indexSelect);
-    z = indexSelect;
-    }
-    return z;
-  }
+// grabs the recipe name when a user clicks on details for that respective recipe
+function getRecName(event){
+  var recipeCard = $(this).closest("#recipe-card");
+  var recName = recipeCard.children("#rec-name").text();
+  getRecDetail(recName);
+}
 
-// listens for user "click" on submit button
+// grabs all data associated with user selected recipe
+function getRecDetail(recName){
+  console.log(recName);
+  recName = recName.replace(" ", "_");
+  var recDetailUrl = mealNameSearch + recName;
+
+  fetch(recDetailUrl)
+  .then(function(response) {
+    if (response.ok) {
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    } 
+  })
+  .catch(function(error) {
+    alert("Unable to connect");
+  });
+}
+
+// listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
 $(ingListEl).on("click", "button", selectIng);
 // listens for recipe # select button
 $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
+// listens for recipe detail button
+$(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
 
