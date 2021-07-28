@@ -19,7 +19,6 @@ var bodyEl = document.getElementById("app");
 // TO UPDATE START //
 // 1. Handle a search of an empty string (current returns EVERY ingredient)
 // 2. Refactor to reduce qty of code (same actions show up in more than one function)
-// 3. some kind of modal to display user selected recipe detail 
 // 4. a way to save and display certain recipes-- will place those recipe's in the recipe section 
 // TO UPDATE END //
 
@@ -284,9 +283,8 @@ function getRecDetail(recName){
     if (response.ok) {
       response.json().then(function(data) {
         console.log(data);
-        var modalEl = document.createElement("div");
-        modalEl.classList.add("modal");
-        bodyEl.appendChild(modalEl);
+        console.log(data.meals[0].strIngredient1);
+        openModal(data);
       });
     } 
   })
@@ -295,8 +293,34 @@ function getRecDetail(recName){
   });
 }
 
+function openModal(data){
+  document.getElementById('id01').style.display='block';
+  var recIngList = document.getElementById("Recipe");
+  var pEl = document.createElement("p");
+  pEl.textContent = data.meals[0].strIngredient1;
+  recIngList.appendChild(pEl);
+}
 
 randomImg();
+
+document.getElementsByClassName("tablink")[0].click();
+
+
+// togals modal
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].classList.remove("w3-light-grey");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.classList.add("w3-light-grey");
+}
+
 
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
