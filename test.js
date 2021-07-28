@@ -13,6 +13,8 @@ var searchBtnEl = document.getElementById("search-btn");
 var ingListEl = document.getElementById("ingList");
 // recipe list holder
 var recipeListEl = document.getElementById("recipeList");
+// <body> element
+var bodyEl = document.getElementById("app");
 
 // TO UPDATE START //
 // 1. Handle a search of an empty string (current returns EVERY ingredient)
@@ -31,6 +33,22 @@ recipeList =[];
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
 validIngId = [];
+
+function randomImg(){
+  var randomImgDiv = document.querySelector("#randomImg")
+    randomImgDiv.innerHTML = ""
+  fetch('https://foodish-api.herokuapp.com/api/')
+    .then(function(response){
+    response.json()
+    .then(function(data){
+      console.log(data)
+      var randomImgEl = document.createElement("img")
+      randomImgEl.setAttribute("src", data.image)
+      randomImgEl.setAttribute("class", "random-img")
+      randomImgDiv.appendChild(randomImgEl)
+    })
+    })
+}
 
 // function that triggers when user clicks on search button
 function ingSearch(event){
@@ -265,6 +283,9 @@ function getRecDetail(recName){
     if (response.ok) {
       response.json().then(function(data) {
         console.log(data);
+        var modalEl = document.createElement("div");
+        modalEl.classList.add("modal");
+        bodyEl.appendChild(modalEl);
       });
     } 
   })
@@ -272,6 +293,7 @@ function getRecDetail(recName){
     alert("Unable to connect");
   });
 }
+randomImg()
 
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
@@ -281,4 +303,6 @@ $(ingListEl).on("click", "button", selectIng);
 $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 // listens for recipe detail button
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
+
+
 
