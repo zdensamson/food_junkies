@@ -36,6 +36,8 @@ header h1 {
 #ingList,
 #recipeList{
 background-color: var(--mint-cream);
+flex-wrap: wrap;
+justify-content: center;
 }
 
 /* Modal Styling */
