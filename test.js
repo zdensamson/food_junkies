@@ -34,6 +34,22 @@ recipeList =[];
 validIng = [];
 validIngId = [];
 
+function randomImg(){
+  var randomImgDiv = document.querySelector("#randomImg")
+    randomImgDiv.innerHTML = ""
+  fetch('https://foodish-api.herokuapp.com/api/')
+    .then(function(response){
+    response.json()
+    .then(function(data){
+      console.log(data)
+      var randomImgEl = document.createElement("img")
+      randomImgEl.setAttribute("src", data.image)
+      randomImgEl.setAttribute("class", "random-img")
+      randomImgDiv.appendChild(randomImgEl)
+    })
+    })
+}
+
 // function that triggers when user clicks on search button
 function ingSearch(event){
   ingList = [];
@@ -277,6 +293,7 @@ function getRecDetail(recName){
     alert("Unable to connect");
   });
 }
+randomImg()
 
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
@@ -286,4 +303,6 @@ $(ingListEl).on("click", "button", selectIng);
 $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 // listens for recipe detail button
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
+
+
 
