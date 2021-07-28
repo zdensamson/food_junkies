@@ -15,12 +15,8 @@ var ingListEl = document.getElementById("ingList");
 var recipeListEl = document.getElementById("recipeList");
 // <body> element
 var bodyEl = document.getElementById("app");
-
-// TO UPDATE START //
-// 1. Handle a search of an empty string (current returns EVERY ingredient)
-// 2. Refactor to reduce qty of code (same actions show up in more than one function)
-// 4. a way to save and display certain recipes-- will place those recipe's in the recipe section 
-// TO UPDATE END //
+// <table> element
+var tabEl = document.getElementById("table");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -282,9 +278,7 @@ function getRecDetail(recName){
   .then(function(response) {
     if (response.ok) {
       response.json().then(function(data) {
-        console.log(data);
-        console.log(data.meals[0].strIngredient1);
-        openModal(data);
+        getDetails(data);
       });
     } 
   })
@@ -293,20 +287,79 @@ function getRecDetail(recName){
   });
 }
 
-function openModal(data){
-  document.getElementById('id01').style.display='block';
-  var recIngList = document.getElementById("Recipe");
-  var pEl = document.createElement("p");
-  pEl.textContent = data.meals[0].strIngredient1;
-  recIngList.appendChild(pEl);
+function getDetails(data){
+  var objKeys = Object.keys(data.meals[0]);
+  var objVal = Object.values(data.meals[0]);
+  
+  console.log(data);
+
+  ingIndex = [];
+  measIndex = [];
+  for(i=0; i<objKeys.length; i++){
+    if(objKeys[i].includes("strIngredient")){
+      ingIndex.push(i);
+    }
+    if(objKeys[i].includes("strMeasure")){
+      measIndex.push(i);
+    }
+  }
+
+  ingTableList = [];
+  measTableList = [];
+  for(i=0; i<ingIndex.length; i++){
+    ingTableList.push(objVal[ingIndex[i]]);
+    measTableList.push(objVal[measIndex[i]]);
+  }
+
+  const ingFilter = ingTableList.filter(el => {
+    return el != null && el != '';
+  });
+  const measFilter = measTableList.filter(el => {
+    return el != null && el != '';
+  });
+  console.log(ingFilter);
+  console.log(measFilter);
+
+  populateModal(ingFilter, measFilter);
 }
+
+function populateModal(ing, meas){
+  tabEl.innerHTML = "";
+  var topRow = document.createElement("tr");
+
+  var ingHead = document.createElement("th");
+  ingHead.textContent = "Ingredient";
+
+  var measHead = document.createElement("th");
+  measHead.textContent = "Measure";
+
+  topRow.appendChild(ingHead);
+  topRow.appendChild(measHead);
+  tabEl.appendChild(topRow);
+
+  for(i=0; i<ing.length; i++){
+    var row = document.createElement("tr");
+
+    var ingCol = document.createElement("td");
+    ingCol.textContent = ing[i];
+    
+    var measCol = document.createElement("td");
+    measCol.textContent = meas[i];
+
+    row.appendChild(ingCol);
+    row.appendChild(measCol);
+    tabEl.appendChild(row);
+
+  }
+  document.getElementById('id01').style.display='block';
+}
+
 
 randomImg();
 
 document.getElementsByClassName("tablink")[0].click();
 
-
-// togals modal
+// togals modal (rename ish)
 function openCity(evt, cityName) {
   var i, x, tablinks;
   x = document.getElementsByClassName("city");
