@@ -20,7 +20,7 @@ var bodyEl = document.getElementById("app");
 // 1. Handle a search of an empty string (current returns EVERY ingredient)
 // 2. Refactor to reduce qty of code (same actions show up in more than one function)
 // 3. some kind of modal to display user selected recipe detail 
-// 4. a way to save and display certain recipes
+// 4. a way to save and display certain recipes-- will place those recipe's in the recipe section 
 // TO UPDATE END //
 
 // this list will hold all possible ingredient NAME's
@@ -34,6 +34,7 @@ recipeList =[];
 validIng = [];
 validIngId = [];
 
+// pings the Foodish API to generate a random image of food
 function randomImg(){
   var randomImgDiv = document.querySelector("#randomImg")
     randomImgDiv.innerHTML = ""
@@ -233,7 +234,7 @@ function largeRecNum(ingredient){
 
   var recBtnEl = document.createElement("button");
   recBtnEl.classList.add("recipe-num")
-  recBtnEl.textContent = "Generate desired recipes"
+  recBtnEl.textContent = "Generate desired # of recipes"
 
   recFormEl.appendChild(recTextEl);
   recFormEl.appendChild(recSelectEl);
@@ -293,7 +294,9 @@ function getRecDetail(recName){
     alert("Unable to connect");
   });
 }
-randomImg()
+
+
+randomImg();
 
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
