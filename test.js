@@ -13,6 +13,8 @@ var searchBtnEl = document.getElementById("search-btn");
 var ingListEl = document.getElementById("ingList");
 // recipe list holder
 var recipeListEl = document.getElementById("recipeList");
+// <body> element
+var bodyEl = document.getElementById("app");
 
 // TO UPDATE START //
 // 1. Handle a search of an empty string (current returns EVERY ingredient)
@@ -265,6 +267,9 @@ function getRecDetail(recName){
     if (response.ok) {
       response.json().then(function(data) {
         console.log(data);
+        var modalEl = document.createElement("div");
+        modalEl.classList.add("modal");
+        bodyEl.appendChild(modalEl);
       });
     } 
   })
