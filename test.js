@@ -17,6 +17,8 @@ var recipeListEl = document.getElementById("recipeList");
 var bodyEl = document.getElementById("app");
 // <table> element
 var tabEl = document.getElementById("table");
+// h1 element in modal 
+var recTitle = document.getElementById("rec-header");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -37,7 +39,6 @@ function randomImg(){
     .then(function(response){
     response.json()
     .then(function(data){
-      console.log(data)
       var randomImgEl = document.createElement("img")
       randomImgEl.setAttribute("src", data.image)
       randomImgEl.setAttribute("class", "random-img")
@@ -98,7 +99,6 @@ function displayIng(searchTerm){
             validIngId.push(ingId[i]);
         }
     }
-    console.log(validIng);
     // alerts the user that their ingredient didn't result in a successful search 
     if(validIng == ""){
       var ingEl = document.createElement("div");
@@ -270,7 +270,6 @@ function getRecName(event){
 
 // grabs all data associated with user selected recipe
 function getRecDetail(recName){
-  console.log(recName);
   recName = recName.replace(" ", "_");
   var recDetailUrl = mealNameSearch + recName;
 
@@ -278,7 +277,7 @@ function getRecDetail(recName){
   .then(function(response) {
     if (response.ok) {
       response.json().then(function(data) {
-        getDetails(data);
+        getDetails(data, recName);
       });
     } 
   })
@@ -287,12 +286,11 @@ function getRecDetail(recName){
   });
 }
 
-function getDetails(data){
+function getDetails(data, recName){
   var objKeys = Object.keys(data.meals[0]);
   var objVal = Object.values(data.meals[0]);
   
   console.log(data);
-
   ingIndex = [];
   measIndex = [];
   for(i=0; i<objKeys.length; i++){
@@ -317,13 +315,14 @@ function getDetails(data){
   const measFilter = measTableList.filter(el => {
     return el != null && el != '';
   });
-  console.log(ingFilter);
-  console.log(measFilter);
 
-  populateModal(ingFilter, measFilter);
+  populateModal(ingFilter, measFilter, recName);
 }
 
-function populateModal(ing, meas){
+function populateModal(ing, meas, recName){
+  recName = recName.replace("_", " ");
+  recTitle.textContent=recName + " recipe";
+
   tabEl.innerHTML = "";
   var topRow = document.createElement("tr");
 
