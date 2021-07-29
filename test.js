@@ -19,6 +19,10 @@ var bodyEl = document.getElementById("app");
 var tabEl = document.getElementById("table");
 // h1 element in modal 
 var recTitle = document.getElementById("rec-header");
+// save button in modal
+var saveBtn = document.getElementById("save-rec");
+// load saved recipe's button
+var loadBtn = document.getElementById("get-saved-rec");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -26,6 +30,9 @@ ingList = [];
 ingId = [];
 // this list will hold all recipe's associated with selected ingredient
 recipeList =[];
+
+saveSingleRec = "";
+savedRecipes = [];
 
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
@@ -265,6 +272,7 @@ function selectRecNum(event){
 function getRecName(event){
   var recipeCard = $(this).closest("#recipe-card");
   var recName = recipeCard.children("#rec-name").text();
+  saveSingleRec = recName;
   getRecDetail(recName);
 }
 
@@ -320,10 +328,12 @@ function getDetails(data, recName){
 }
 
 function populateModal(ing, meas, recName){
+  tabEl.innerHTML = "";
   recName = recName.replace("_", " ");
   recTitle.textContent=recName + " recipe";
+  recTitle.setAttribute("class", "rec-header");
 
-  tabEl.innerHTML = "";
+ 
   var topRow = document.createElement("tr");
 
   var ingHead = document.createElement("th");
@@ -355,7 +365,6 @@ function populateModal(ing, meas, recName){
 
 
 randomImg();
-
 document.getElementsByClassName("tablink")[0].click();
 
 // togals modal (rename ish)
@@ -373,6 +382,19 @@ function openCity(evt, cityName) {
   evt.currentTarget.classList.add("w3-light-grey");
 }
 
+function saveRecipe(event){
+  console.log("click");
+  console.log(saveSingleRec);
+  savedRecs = JSON.parse(localStorage.getItem("recipes"));
+  if(!savedRecs){
+    savedRecs = [];
+  }
+  savedRecipes = savedRecs;
+  savedRecipes.push(saveSingleRec);
+
+  localStorage.setItem("recipes", JSON.stringify(savedRecipes));
+  // saveBtn.textContent = "SAVED!"
+}
 
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
@@ -382,6 +404,9 @@ $(ingListEl).on("click", "button", selectIng);
 $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 // listens for recipe detail button
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
+// listens for save button click
+$(saveBtn).on("click",saveRecipe);
+
 
 
 

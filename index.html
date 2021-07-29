@@ -26,6 +26,7 @@
     <div id="ingInput" class="simple-border">
         <input type="text" id="ing-search">
         <button id="search-btn">Search</button>
+        <button id="get-saved-rec">Get Saved Recipes</button>
     </div>
 
     <!-- Div to store ingredients -->
@@ -52,7 +53,7 @@
             <h2>Header</h2>
             </header>
         
-            <div class="w3-bar w3-border-bottom">
+            <div id="modal" class="w3-bar w3-border-bottom">
             <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Recipe')">Recipe</button>
             <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Video')">Video</button>
             <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Maybe_delete')">Maybe_delete</button>
@@ -75,6 +76,7 @@
             </div>
         
             <div class="w3-container w3-light-grey w3-padding">
+            <button class="w3-button w3-left w3-white w3-border" id="save-rec">Save Recipe</button>
             <button class="w3-button w3-right w3-white w3-border" 
             onclick="document.getElementById('id01').style.display='none'">Close</button>
             </div>
