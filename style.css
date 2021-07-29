@@ -26,15 +26,15 @@ header h1 {
     background-image: url("./images/Untitled.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: auto;
+    /* height: auto; */
 
     margin: 0px;
     padding: 0px;
 }
 
-#headerImg {
-  max-height: 100%;
-  max-width: 100%;
+/* #headerImg { */
+  /* max-height: 100%; */
+  /* max-width: 100%; */
 }
 
 >>>>>>> b59013e38172ae0efa807d1f5b4148cfa69b87a9
