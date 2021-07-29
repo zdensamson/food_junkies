@@ -363,7 +363,6 @@ function populateModal(ing, meas, recName){
   document.getElementById('id01').style.display='block';
 }
 
-
 randomImg();
 document.getElementsByClassName("tablink")[0].click();
 
@@ -396,6 +395,45 @@ function saveRecipe(event){
   // saveBtn.textContent = "SAVED!"
 }
 
+function loadRecipe(event){
+  clearRecipes();
+
+  savedRecs = JSON.parse(localStorage.getItem("recipes"));
+  if(!savedRecs){
+    savedRecs = [];
+
+    var recipe = document.createElement("div");
+    recipe.id = "recipe-card";
+  
+    var recipeName = document.createElement("p");
+    recipeName.id = "rec-name";
+    recipeName.textContent = "You don't have any saved recipes!";
+
+    recipe.appendChild(recipeName);
+    recipeListEl.appendChild(recipe);
+  }
+  else{
+    savedRecipes = savedRecs;
+
+    for(i=0; i<savedRecipes.length; i++){
+      var recipe = document.createElement("div");
+      recipe.id = "recipe-card";
+
+      var recipeName = document.createElement("p");
+      recipeName.id = "rec-name";
+      recipeName.textContent = savedRecipes[i];
+
+      var recipeBtnEl = document.createElement("button");
+      recipeBtnEl.id = "rec-detail-btn";
+      recipeBtnEl.textContent = "Get Details";
+
+      recipe.appendChild(recipeName);
+      recipe.appendChild(recipeBtnEl);
+      recipeListEl.appendChild(recipe);
+    } 
+  }
+}
+
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
@@ -406,6 +444,8 @@ $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
 // listens for save button click
 $(saveBtn).on("click",saveRecipe);
+// listens for a load button click
+$(loadBtn).on("click",loadRecipe);
 
 
 
