@@ -25,6 +25,8 @@ var saveBtn = document.getElementById("save-rec");
 var loadBtn = document.getElementById("get-saved-rec");
 // delete saved recipe's button
 var deleteBtn = document.getElementById("delete-rec");
+// video modal section
+var videoHolder = document.getElementById("video-holder");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -327,16 +329,17 @@ function getDetails(data, recName){
     return el != null && el != '';
   });
 
-  populateModal(ingFilter, measFilter, recName);
+  var vidLink = data.meals[0].strYoutube;
+
+  populateModal(ingFilter, measFilter, recName, vidLink);
 }
 
-function populateModal(ing, meas, recName){
+function populateModal(ing, meas, recName, vidLink){
   tabEl.innerHTML = "";
   recName = recName.replace("_", " ");
   recTitle.textContent=recName + " recipe";
   recTitle.setAttribute("class", "rec-header");
 
- 
   var topRow = document.createElement("tr");
 
   var ingHead = document.createElement("th");
@@ -361,8 +364,15 @@ function populateModal(ing, meas, recName){
     row.appendChild(ingCol);
     row.appendChild(measCol);
     tabEl.appendChild(row);
-
   }
+  
+  console.log(vidLink);
+ 
+
+  videoHolder.href = vidLink;
+  videoHolder.setAttribute("target", "_blank");
+  // videoHolder.appendChild(videoEl);
+
   document.getElementById('id01').style.display='block';
 }
 
