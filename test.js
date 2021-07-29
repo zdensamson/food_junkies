@@ -49,7 +49,7 @@ validIng = [];
 function randomImg(){
   var randomImgDiv = document.querySelector("#randomImg")
     randomImgDiv.innerHTML = ""
-  fetch('https://foodish-api.herokuapp.com/api/')
+  fetch('https://cors-anywhere.herokuapp.com/https://foodish-api.herokuapp.com/api/')
     .then(function(response){
     response.json()
     .then(function(data){
