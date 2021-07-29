@@ -18,15 +18,13 @@ body {
     padding: 0;
 }
 
-<<<<<<< HEAD
-=======
 header h1 {
-    display: block;
+    display: flex;
     justify-content: center;
     background-image: url("./images/Untitled.png");
     background-repeat: no-repeat;
     background-size: contain;
-    /* height: auto; */
+    height: auto;
 
     margin: 0px;
     padding: 0px;
@@ -35,9 +33,8 @@ header h1 {
 /* #headerImg { */
   /* max-height: 100%; */
   /* max-width: 100%; */
-}
+/* } */
 
->>>>>>> b59013e38172ae0efa807d1f5b4148cfa69b87a9
 .simple-border {
     display: flex;
     justify-content: center;
@@ -51,8 +48,8 @@ header h1 {
 background-color: var(--mint-cream);
 flex-wrap: wrap;
 justify-content: center;
-max-width: 100%;
-width: 100%;
+/* max-width: 100%; */
+/* width: 100%; */
 }
 
 
@@ -64,7 +61,6 @@ width: 100%;
     height: 30%;
   }
 
-<<<<<<< HEAD
 
   h1,
 h2,
@@ -78,24 +74,6 @@ h6 {
   line-height: 1.25;
 }
 
-=======
-/* Table styling */
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-  }
-  
-  td, th {
-    border: 1px solid black;
-    text-align: center;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
->>>>>>> b59013e38172ae0efa807d1f5b4148cfa69b87a9
 
   main {
     margin: 20px auto;
