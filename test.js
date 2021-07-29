@@ -23,6 +23,8 @@ var recTitle = document.getElementById("rec-header");
 var saveBtn = document.getElementById("save-rec");
 // load saved recipe's button
 var loadBtn = document.getElementById("get-saved-rec");
+// delete saved recipe's button
+var deleteBtn = document.getElementById("delete-rec");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -435,6 +437,9 @@ function loadRecipe(event){
   }
 }
 
+function deleteSaves(event){
+  localStorage.clear();
+}
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
@@ -447,7 +452,8 @@ $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
 $(saveBtn).on("click",saveRecipe);
 // listens for a load button click
 $(loadBtn).on("click",loadRecipe);
-
+// listens for a delete button click
+$(deleteBtn).on("click", deleteSaves);
 
 
 
