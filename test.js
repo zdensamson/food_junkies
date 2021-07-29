@@ -36,7 +36,10 @@ savedRecipes = [];
 
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
-validIngId = [];
+
+
+// TO UPDATE---- USER CAN SAVE THE SAME RECIPE MORE THAN ONCE &&& need to add video 
+
 
 // pings the Foodish API to generate a random image of food
 function randomImg(){
@@ -103,7 +106,6 @@ function displayIng(searchTerm){
         if(ingList[i].toLowerCase().includes(searchTerm.toLowerCase())){
             // stores all SIMILAR ingredients in the var "validIng"
             validIng.push(ingList[i]);
-            validIngId.push(ingId[i]);
         }
     }
     // alerts the user that their ingredient didn't result in a successful search 
@@ -118,7 +120,6 @@ function displayIng(searchTerm){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
         ingEl.classList.add("ingredient");
-        ingEl.setAttribute("data-ingId", validIngId[i]);
 
         var ingName = document.createElement("p");
         ingName.classList.add("ingredient-name")
