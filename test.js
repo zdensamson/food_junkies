@@ -46,19 +46,24 @@ validIng = [];
 
 
 // pings the Foodish API to generate a random image of food
+// function randomImg(){
+//   var randomImgDiv = document.querySelector("#randomImg")
+//     randomImgDiv.innerHTML = ""
+//   fetch('https://cors-anywhere.herokuapp.com/https://foodish-api.herokuapp.com/api/')
+//     .then(function(response){
+//     response.json()
+//     .then(function(data){
+//       var randomImgEl = document.createElement("img")
+//       randomImgEl.setAttribute("src", data.image)
+//       randomImgEl.setAttribute("class", "random-img")
+//       randomImgDiv.appendChild(randomImgEl)
+//     })
+//     })
+// }
+
+// random image from lorem flickr
 function randomImg(){
-  var randomImgDiv = document.querySelector("#randomImg")
-    randomImgDiv.innerHTML = ""
-  fetch('https://cors-anywhere.herokuapp.com/https://foodish-api.herokuapp.com/api/')
-    .then(function(response){
-    response.json()
-    .then(function(data){
-      var randomImgEl = document.createElement("img")
-      randomImgEl.setAttribute("src", data.image)
-      randomImgEl.setAttribute("class", "random-img")
-      randomImgDiv.appendChild(randomImgEl)
-    })
-    })
+  fetch(randomImgDivtest)
 }
 
 // function that triggers when user clicks on search button
