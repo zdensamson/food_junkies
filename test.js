@@ -15,13 +15,18 @@ var ingListEl = document.getElementById("ingList");
 var recipeListEl = document.getElementById("recipeList");
 // <body> element
 var bodyEl = document.getElementById("app");
-
-// TO UPDATE START //
-// 1. Handle a search of an empty string (current returns EVERY ingredient)
-// 2. Refactor to reduce qty of code (same actions show up in more than one function)
-// 3. some kind of modal to display user selected recipe detail 
-// 4. a way to save and display certain recipes
-// TO UPDATE END //
+// <table> element
+var tabEl = document.getElementById("table");
+// h1 element in modal 
+var recTitle = document.getElementById("rec-header");
+// save button in modal
+var saveBtn = document.getElementById("save-rec");
+// load saved recipe's button
+var loadBtn = document.getElementById("get-saved-rec");
+// delete saved recipe's button
+var deleteBtn = document.getElementById("delete-rec");
+// video modal section
+var videoHolder = document.getElementById("video-holder");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -30,18 +35,24 @@ ingId = [];
 // this list will hold all recipe's associated with selected ingredient
 recipeList =[];
 
+saveSingleRec = "";
+savedRecipes = [];
+
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
-validIngId = [];
 
+
+// TO UPDATE---- USER CAN SAVE THE SAME RECIPE MORE THAN ONCE &&& need to add video 
+
+
+// pings the Foodish API to generate a random image of food
 function randomImg(){
   var randomImgDiv = document.querySelector("#randomImg")
     randomImgDiv.innerHTML = ""
-  fetch('https://foodish-api.herokuapp.com/api/')
+  fetch('https://cors-anywhere.herokuapp.com/https://foodish-api.herokuapp.com/api/')
     .then(function(response){
     response.json()
     .then(function(data){
-      console.log(data)
       var randomImgEl = document.createElement("img")
       randomImgEl.setAttribute("src", data.image)
       randomImgEl.setAttribute("class", "random-img")
@@ -99,10 +110,8 @@ function displayIng(searchTerm){
         if(ingList[i].toLowerCase().includes(searchTerm.toLowerCase())){
             // stores all SIMILAR ingredients in the var "validIng"
             validIng.push(ingList[i]);
-            validIngId.push(ingId[i]);
         }
     }
-    console.log(validIng);
     // alerts the user that their ingredient didn't result in a successful search 
     if(validIng == ""){
       var ingEl = document.createElement("div");
@@ -115,7 +124,6 @@ function displayIng(searchTerm){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
         ingEl.classList.add("ingredient");
-        ingEl.setAttribute("data-ingId", validIngId[i]);
 
         var ingName = document.createElement("p");
         ingName.classList.add("ingredient-name")
@@ -233,7 +241,7 @@ function largeRecNum(ingredient){
 
   var recBtnEl = document.createElement("button");
   recBtnEl.classList.add("recipe-num")
-  recBtnEl.textContent = "Generate desired recipes"
+  recBtnEl.textContent = "Generate desired # of recipes"
 
   recFormEl.appendChild(recTextEl);
   recFormEl.appendChild(recSelectEl);
@@ -269,12 +277,12 @@ function selectRecNum(event){
 function getRecName(event){
   var recipeCard = $(this).closest("#recipe-card");
   var recName = recipeCard.children("#rec-name").text();
+  saveSingleRec = recName;
   getRecDetail(recName);
 }
 
 // grabs all data associated with user selected recipe
 function getRecDetail(recName){
-  console.log(recName);
   recName = recName.replace(" ", "_");
   var recDetailUrl = mealNameSearch + recName;
 
@@ -282,10 +290,7 @@ function getRecDetail(recName){
   .then(function(response) {
     if (response.ok) {
       response.json().then(function(data) {
-        console.log(data);
-        var modalEl = document.createElement("div");
-        modalEl.classList.add("modal");
-        bodyEl.appendChild(modalEl);
+        getDetails(data, recName);
       });
     } 
   })
@@ -293,8 +298,158 @@ function getRecDetail(recName){
     alert("Unable to connect");
   });
 }
-randomImg()
 
+function getDetails(data, recName){
+  var objKeys = Object.keys(data.meals[0]);
+  var objVal = Object.values(data.meals[0]);
+  
+  console.log(data);
+  ingIndex = [];
+  measIndex = [];
+  for(i=0; i<objKeys.length; i++){
+    if(objKeys[i].includes("strIngredient")){
+      ingIndex.push(i);
+    }
+    if(objKeys[i].includes("strMeasure")){
+      measIndex.push(i);
+    }
+  }
+
+  ingTableList = [];
+  measTableList = [];
+  for(i=0; i<ingIndex.length; i++){
+    ingTableList.push(objVal[ingIndex[i]]);
+    measTableList.push(objVal[measIndex[i]]);
+  }
+
+  const ingFilter = ingTableList.filter(el => {
+    return el != null && el != '';
+  });
+  const measFilter = measTableList.filter(el => {
+    return el != null && el != '';
+  });
+
+  var vidLink = data.meals[0].strYoutube;
+
+  populateModal(ingFilter, measFilter, recName, vidLink);
+}
+
+function populateModal(ing, meas, recName, vidLink){
+  tabEl.innerHTML = "";
+  recName = recName.replace("_", " ");
+  recTitle.textContent=recName + " recipe";
+  recTitle.setAttribute("class", "rec-header");
+
+  var topRow = document.createElement("tr");
+
+  var ingHead = document.createElement("th");
+  ingHead.textContent = "Ingredient";
+
+  var measHead = document.createElement("th");
+  measHead.textContent = "Measure";
+
+  topRow.appendChild(ingHead);
+  topRow.appendChild(measHead);
+  tabEl.appendChild(topRow);
+
+  for(i=0; i<ing.length; i++){
+    var row = document.createElement("tr");
+
+    var ingCol = document.createElement("td");
+    ingCol.textContent = ing[i];
+    
+    var measCol = document.createElement("td");
+    measCol.textContent = meas[i];
+
+    row.appendChild(ingCol);
+    row.appendChild(measCol);
+    tabEl.appendChild(row);
+  }
+  
+  console.log(vidLink);
+ 
+
+  videoHolder.href = vidLink;
+  videoHolder.setAttribute("target", "_blank");
+  // videoHolder.appendChild(videoEl);
+
+  document.getElementById('id01').style.display='block';
+}
+
+randomImg();
+document.getElementsByClassName("tablink")[0].click();
+
+// togals modal (rename ish)
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].classList.remove("w3-light-grey");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.classList.add("w3-light-grey");
+}
+
+function saveRecipe(event){
+  console.log("click");
+  console.log(saveSingleRec);
+  savedRecs = JSON.parse(localStorage.getItem("recipes"));
+  if(!savedRecs){
+    savedRecs = [];
+  }
+  savedRecipes = savedRecs;
+  savedRecipes.push(saveSingleRec);
+
+  localStorage.setItem("recipes", JSON.stringify(savedRecipes));
+  // saveBtn.textContent = "SAVED!"
+}
+
+function loadRecipe(event){
+  clearRecipes();
+
+  savedRecs = JSON.parse(localStorage.getItem("recipes"));
+  if(!savedRecs){
+    savedRecs = [];
+
+    var recipe = document.createElement("div");
+    recipe.id = "recipe-card";
+  
+    var recipeName = document.createElement("p");
+    recipeName.id = "rec-name";
+    recipeName.textContent = "You don't have any saved recipes!";
+
+    recipe.appendChild(recipeName);
+    recipeListEl.appendChild(recipe);
+  }
+  else{
+    savedRecipes = savedRecs;
+
+    for(i=0; i<savedRecipes.length; i++){
+      var recipe = document.createElement("div");
+      recipe.id = "recipe-card";
+
+      var recipeName = document.createElement("p");
+      recipeName.id = "rec-name";
+      recipeName.textContent = savedRecipes[i];
+
+      var recipeBtnEl = document.createElement("button");
+      recipeBtnEl.id = "rec-detail-btn";
+      recipeBtnEl.textContent = "Get Details";
+
+      recipe.appendChild(recipeName);
+      recipe.appendChild(recipeBtnEl);
+      recipeListEl.appendChild(recipe);
+    } 
+  }
+}
+
+function deleteSaves(event){
+  localStorage.clear();
+}
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
@@ -303,6 +458,12 @@ $(ingListEl).on("click", "button", selectIng);
 $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 // listens for recipe detail button
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
+// listens for save button click
+$(saveBtn).on("click",saveRecipe);
+// listens for a load button click
+$(loadBtn).on("click",loadRecipe);
+// listens for a delete button click
+$(deleteBtn).on("click", deleteSaves);
 
 
 
