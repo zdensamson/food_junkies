@@ -18,14 +18,20 @@ body {
 }
 
 header h1 {
-    display: flex;
+    display: block;
     justify-content: center;
     background-image: url("./images/Untitled.png");
     background-repeat: no-repeat;
-    height: 250px;
+    background-size: contain;
+    height: auto;
 
     margin: 0px;
     padding: 0px;
+}
+
+#headerImg {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .simple-border {
@@ -41,7 +47,10 @@ header h1 {
 background-color: var(--mint-cream);
 flex-wrap: wrap;
 justify-content: center;
+max-width: 100%;
+width: 100%;
 }
+
 
 #randomImg img {
     margin-left: auto;
