@@ -18,23 +18,28 @@ body {
     padding: 0;
 }
 
+<<<<<<< HEAD
+=======
 header h1 {
-    display: block;
+    display: flex;
     justify-content: center;
     background-image: url("./images/Untitled.png");
     background-repeat: no-repeat;
-    background-size: contain;
-    height: auto;
+    height: 250px;
 
     margin: 0px;
     padding: 0px;
 }
 
+<<<<<<< HEAD
 #headerImg {
   max-height: 100%;
   max-width: 100%;
 }
 
+>>>>>>> b59013e38172ae0efa807d1f5b4148cfa69b87a9
+=======
+>>>>>>> parent of e57b29d (csswrapedits)
 .simple-border {
     display: flex;
     justify-content: center;
@@ -48,10 +53,7 @@ header h1 {
 background-color: var(--mint-cream);
 flex-wrap: wrap;
 justify-content: center;
-max-width: 100%;
-width: 100%;
 }
-
 
 #randomImg img {
     margin-left: auto;
@@ -61,6 +63,21 @@ width: 100%;
     height: 30%;
   }
 
+<<<<<<< HEAD
+
+  h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin: 0;
+  color: var(--dark);
+  line-height: 1.25;
+}
+
+=======
 /* Table styling */
 table {
     font-family: arial, sans-serif;
@@ -77,6 +94,7 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+>>>>>>> b59013e38172ae0efa807d1f5b4148cfa69b87a9
 
   main {
     margin: 20px auto;
