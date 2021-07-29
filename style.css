@@ -37,6 +37,9 @@ header h1 {
     max-height: 100%;
     max-width: 100%;
 }
+.headers {
+  background-color: var(--street-teal);
+}
 
 /*
 #headerImg {
