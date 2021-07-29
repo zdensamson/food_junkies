@@ -9,78 +9,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
         integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="app" class="flex-column min-100-vh">
 
-    <header>
+    <header class="hero">
         <!-- <h1>  </h1> -->
-        <img id="headerImg" src="./images/Untitled.png" alt="headerimg"/>
+     <img src="./images/Untitled.png" alt="headerimg"/>
     </header>
 
+<main class="justify-space-between">
     <!-- accepts user inputs -->
-    <div id="ingInput" class="simple-border">
-        <input type="text" id="ing-search">
-        <button id="search-btn">Search</button>
-        <button id="get-saved-rec">Get Saved Recipes</button>
-        <button id="delete-rec">Delete Saved Recipes</button>
+    <div class="col-12 col-md-4">
+            <div id="ingInput" class="simple-border">
+                <input type="text" id="ing-search">
+                <button id="search-btn" class="button btn">Search</button>
+                <button id="get-saved-rec" class="btn">Get Saved Recipes</button>
+                <button id="delete-rec" class="btn">Delete Saved Recipes</button>
+            </div>
+        
+        <!-- Div to store ingredients -->
+            <h2 class="simple-border headers">Ingredients</h2>
+            <div id="ingList" class="simple-border seven">
+            </div>
     </div>
-
-    <!-- Div to store ingredients -->
-    <div id="ingList" class="simple-border seven">
-        <h2>Ingredients</h2>
-    </div>
-    
+        
     <!-- Div to store recipes -->
-    <div id="recipeList" class="simple-border seven">
-        <h2>Recipes</h2>
-    </div>
+    
+        <h2 class="simple-border headers">Recipes</h2>
+        <div id="recipeList" class="simple-border seven list-group">
+        </div>
     
     <!-- Appends random image of food to the page -->
-    <div id="randomImg" >
+    <div id="randomImg">
     </div>
-
+    <!-- random image from lorem/flckr.com -->
+    <div id="randomImgDivtest" class="simple-border">
+        <img src="https://loremflickr.com/g/320/240/food" alt="foodimg">
+    </div>
+    
     <!-- MODAL -->
     <div class="w3-container">
         <div id="id01" class="w3-modal">
             <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-            <header class="w3-container w3-blue"> 
-            <span onclick="document.getElementById('id01').style.display='none'" 
-            class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
-            <h2>Recipe</h2>
-            </header>
-        
-            <div id="modal" class="w3-bar w3-border-bottom">
-            <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Recipe')">Recipe</button>
-            <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Video')">Video</button>
-            </div>
-        
-            <div id="Recipe" class="w3-container city">
-            <h1 id="rec-header"></h1>
-            <table id="table">
-              </table>
+                <header class="w3-container w3-blue"> 
+                    <span onclick="document.getElementById('id01').style.display='none'" 
+                    class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
+                    <h2>Recipe</h2>
+                </header>
                 
-            </div>
-        
-            <div id="Video" class="w3-container city">
-            <h1>Video</h1>
-            <a id="video-holder">Here's a how-to video!</a>
-            </div>
-        
-            <div class="w3-container w3-light-grey w3-padding">
-            <button class="w3-button w3-left w3-white w3-border" id="save-rec">Save Recipe</button>
-            <button class="w3-button w3-right w3-white w3-border" 
-            onclick="document.getElementById('id01').style.display='none'">Close</button>
-            </div>
+                <div id="modal" class="w3-bar w3-border-bottom">
+                    <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Recipe')">Recipe</button>
+                    <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Video')">Video</button>
+                </div>
+                
+                <div id="Recipe" class="w3-container city">
+                    <h1 id="rec-header"></h1>
+                    <table id="table">
+                    </table>
+                    
+                </div>
+                
+                <div id="Video" class="w3-container city">
+                    <h1>Video</h1>
+                    <a id="video-holder">Here's a how-to video!</a>
+                </div>
+                
+                <div class="w3-container w3-light-grey w3-padding">
+                    <button class="w3-button w3-left w3-white w3-border" id="save-rec">Save Recipe</button>
+                    <button class="w3-button w3-right w3-white w3-border" 
+                    onclick="document.getElementById('id01').style.display='none'">Close</button>
+                </div>
             </div>
         </div>
     </div>
-        
+</main>
+    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./test.js"></script>

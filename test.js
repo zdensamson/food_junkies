@@ -46,19 +46,24 @@ validIng = [];
 
 
 // pings the Foodish API to generate a random image of food
+// function randomImg(){
+//   var randomImgDiv = document.querySelector("#randomImg")
+//     randomImgDiv.innerHTML = ""
+//   fetch('https://cors-anywhere.herokuapp.com/https://foodish-api.herokuapp.com/api/')
+//     .then(function(response){
+//     response.json()
+//     .then(function(data){
+//       var randomImgEl = document.createElement("img")
+//       randomImgEl.setAttribute("src", data.image)
+//       randomImgEl.setAttribute("class", "random-img")
+//       randomImgDiv.appendChild(randomImgEl)
+//     })
+//     })
+// }
+
+// random image from lorem flickr
 function randomImg(){
-  var randomImgDiv = document.querySelector("#randomImg")
-    randomImgDiv.innerHTML = ""
-  fetch('https://foodish-api.herokuapp.com/api/')
-    .then(function(response){
-    response.json()
-    .then(function(data){
-      var randomImgEl = document.createElement("img")
-      randomImgEl.setAttribute("src", data.image)
-      randomImgEl.setAttribute("class", "random-img")
-      randomImgDiv.appendChild(randomImgEl)
-    })
-    })
+  fetch(randomImgDivtest)
 }
 
 // function that triggers when user clicks on search button
@@ -67,9 +72,7 @@ function ingSearch(event){
   validIng = [];
   ingListEl.innerHTML = "";
   clearRecipes();
-  var ingH2El = document.createElement("h2");
-  ingH2El.textContent = "Ingredients";
-  ingListEl.appendChild(ingH2El);
+  
 
   var userIng = inputEl.value;
   inputEl.value = "";
@@ -169,9 +172,7 @@ function getRecipes(ingredient){
 // deletes all currently displayed recipes
 function clearRecipes(){
   recipeListEl.innerHTML = "";
-  var recH2El = document.createElement("h2");
-  recH2El.textContent = "Recipes";
-  recipeListEl.appendChild(recH2El);
+ 
 }
 
 // displays all recipe names associated with user ingredient (if there are less than 6)
