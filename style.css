@@ -20,7 +20,10 @@ body {
 header h1 {
     display: flex;
     justify-content: center;
-    background-color: var(--street-teal);
+    background-image: url("./images/Untitled.png");
+    background-repeat: no-repeat;
+    height: 250px;
+
     margin: 0px;
     padding: 0px;
 }
