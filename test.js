@@ -67,9 +67,7 @@ function ingSearch(event){
   validIng = [];
   ingListEl.innerHTML = "";
   clearRecipes();
-  var ingH2El = document.createElement("h2");
-  ingH2El.textContent = "Ingredients";
-  ingListEl.appendChild(ingH2El);
+  
 
   var userIng = inputEl.value;
   inputEl.value = "";
@@ -169,9 +167,7 @@ function getRecipes(ingredient){
 // deletes all currently displayed recipes
 function clearRecipes(){
   recipeListEl.innerHTML = "";
-  var recH2El = document.createElement("h2");
-  recH2El.textContent = "Recipes";
-  recipeListEl.appendChild(recH2El);
+ 
 }
 
 // displays all recipe names associated with user ingredient (if there are less than 6)
