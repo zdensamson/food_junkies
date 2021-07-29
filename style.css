@@ -40,7 +40,17 @@ header h1 {
 .headers {
   background-color: var(--street-teal);
 }
+.ingredient, #recipe-card {
+  border: solid;
+  border-width: 2px;
+  border-color: black;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
 
+#rec-name {
+  word-wrap: break-word;
+}
 /*
 #headerImg {
   max-height: 100%;
