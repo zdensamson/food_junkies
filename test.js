@@ -23,6 +23,8 @@ var recTitle = document.getElementById("rec-header");
 var saveBtn = document.getElementById("save-rec");
 // load saved recipe's button
 var loadBtn = document.getElementById("get-saved-rec");
+// delete saved recipe's button
+var deleteBtn = document.getElementById("delete-rec");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -36,7 +38,10 @@ savedRecipes = [];
 
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
-validIngId = [];
+
+
+// TO UPDATE---- USER CAN SAVE THE SAME RECIPE MORE THAN ONCE &&& need to add video 
+
 
 // pings the Foodish API to generate a random image of food
 function randomImg(){
@@ -103,7 +108,6 @@ function displayIng(searchTerm){
         if(ingList[i].toLowerCase().includes(searchTerm.toLowerCase())){
             // stores all SIMILAR ingredients in the var "validIng"
             validIng.push(ingList[i]);
-            validIngId.push(ingId[i]);
         }
     }
     // alerts the user that their ingredient didn't result in a successful search 
@@ -118,7 +122,6 @@ function displayIng(searchTerm){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
         ingEl.classList.add("ingredient");
-        ingEl.setAttribute("data-ingId", validIngId[i]);
 
         var ingName = document.createElement("p");
         ingName.classList.add("ingredient-name")
@@ -363,7 +366,6 @@ function populateModal(ing, meas, recName){
   document.getElementById('id01').style.display='block';
 }
 
-
 randomImg();
 document.getElementsByClassName("tablink")[0].click();
 
@@ -396,6 +398,48 @@ function saveRecipe(event){
   // saveBtn.textContent = "SAVED!"
 }
 
+function loadRecipe(event){
+  clearRecipes();
+
+  savedRecs = JSON.parse(localStorage.getItem("recipes"));
+  if(!savedRecs){
+    savedRecs = [];
+
+    var recipe = document.createElement("div");
+    recipe.id = "recipe-card";
+  
+    var recipeName = document.createElement("p");
+    recipeName.id = "rec-name";
+    recipeName.textContent = "You don't have any saved recipes!";
+
+    recipe.appendChild(recipeName);
+    recipeListEl.appendChild(recipe);
+  }
+  else{
+    savedRecipes = savedRecs;
+
+    for(i=0; i<savedRecipes.length; i++){
+      var recipe = document.createElement("div");
+      recipe.id = "recipe-card";
+
+      var recipeName = document.createElement("p");
+      recipeName.id = "rec-name";
+      recipeName.textContent = savedRecipes[i];
+
+      var recipeBtnEl = document.createElement("button");
+      recipeBtnEl.id = "rec-detail-btn";
+      recipeBtnEl.textContent = "Get Details";
+
+      recipe.appendChild(recipeName);
+      recipe.appendChild(recipeBtnEl);
+      recipeListEl.appendChild(recipe);
+    } 
+  }
+}
+
+function deleteSaves(event){
+  localStorage.clear();
+}
 // listens for user "click" on submit/search button
 searchBtnEl.addEventListener("click", ingSearch);
 // listens for user "click" on ingrediet element
@@ -406,7 +450,10 @@ $(recipeListEl).on("click", "button.recipe-num", selectRecNum);
 $(recipeListEl).on("click", "button#rec-detail-btn", getRecName)
 // listens for save button click
 $(saveBtn).on("click",saveRecipe);
-
+// listens for a load button click
+$(loadBtn).on("click",loadRecipe);
+// listens for a delete button click
+$(deleteBtn).on("click", deleteSaves);
 
 
 
