@@ -41,9 +41,6 @@ header h1 {
   background-color: var(--street-teal);
 }
 .ingredient, #recipe-card {
-  border: solid;
-  border-width: 2px;
-  border-color: black;
   margin-right: 2px;
   margin-bottom: 2px;
 }
