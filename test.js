@@ -381,9 +381,9 @@ randomImg();
 document.getElementsByClassName("tablink")[0].click();
 
 // togals modal (rename ish)
-function openCity(evt, cityName) {
+function openTab(evt, tabName) {
   var i, x, tablinks;
-  x = document.getElementsByClassName("city");
+  x = document.getElementsByClassName("tab");
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
   }
@@ -391,7 +391,7 @@ function openCity(evt, cityName) {
   for (i = 0; i < x.length; i++) {
     tablinks[i].classList.remove("w3-light-grey");
   }
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.classList.add("w3-light-grey");
 }
 
