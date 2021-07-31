@@ -27,6 +27,8 @@ var loadBtn = document.getElementById("get-saved-rec");
 var deleteBtn = document.getElementById("delete-rec");
 // video modal section
 var videoHolder = document.getElementById("video-holder");
+// new video modal section
+var vidHolderEl = document.getElementById("vid-holder");
 
 // this list will hold all possible ingredient NAME's
 ingList = [];
@@ -366,11 +368,8 @@ function populateModal(ing, meas, recName, vidLink){
   }
   
   console.log(vidLink);
- 
-  
-  videoHolder.href = vidLink;
-  videoHolder.setAttribute("target", "_blank");
-  // videoHolder.appendChild(videoEl);
+  vidLink = vidLink.replace("watch?v=", "embed/")
+  vidHolderEl.src = vidLink;
 
   document.getElementById('id01').style.display='block';
 }
