@@ -26,6 +26,10 @@ header h1 {
     padding: 0px;
 }
 
+.modal-clr {
+  background-color: var(--mint-cream);
+}
+
 .hero {
   background-color: var(--black);
   color: var(--primary);

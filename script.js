@@ -41,9 +41,7 @@ savedRecipes = [];
 // this list will hold only ingredients that contain the user's search term 
 validIng = [];
 
-
 // TO UPDATE---- USER CAN SAVE THE SAME RECIPE MORE THAN ONCE &&& need to add video 
-
 
 // pings the Foodish API to generate a random image of food
 // function randomImg(){
@@ -369,7 +367,7 @@ function populateModal(ing, meas, recName, vidLink){
   
   console.log(vidLink);
  
-
+  
   videoHolder.href = vidLink;
   videoHolder.setAttribute("target", "_blank");
   // videoHolder.appendChild(videoEl);
@@ -380,7 +378,7 @@ function populateModal(ing, meas, recName, vidLink){
 randomImg();
 document.getElementsByClassName("tablink")[0].click();
 
-// togals modal (rename ish)
+// togals modal
 function openTab(evt, tabName) {
   var i, x, tablinks;
   x = document.getElementsByClassName("tab");
@@ -465,6 +463,3 @@ $(saveBtn).on("click",saveRecipe);
 $(loadBtn).on("click",loadRecipe);
 // listens for a delete button click
 $(deleteBtn).on("click", deleteSaves);
-
-
-
