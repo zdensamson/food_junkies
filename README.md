@@ -1,24 +1,74 @@
-# food_junkies
+# _Food Junkies_
+> An application that helps user's use ingridients they have in their fridge or pantry.
+> Live demo [_here_](https://zdensamson.github.io/food_junkies/). 
 
-Title (in progress): Food Junkies
+## Table of Contents
+* [Technologies Used](#technologies-used)
+* [APIs Used](#apis-used)
+* [Features](#features)
+* [Screenshot](#screenshot)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
 
-Description: 
-    An application to help user's use ingridients in their fridge and pantry.
+## Technologies Used
+- Tech 1 - HTML
+- Tech 2 - CSS
+- Tech 3 - Skeleton
+- Tech 4 - Javascript
+- Tech 5 - jQuery
 
-User story: 
-    AS A        consumer who has expiring ingridinets in thir fridge
-    I WANT      an application that helps give me recipes with the ingrdients
-    SO THAT     I can use the ingridients before they expire 
-
-MVP Acceptance Criteria:  
-    -The user gives their ingridients
-    The application provides users with a number of recipes they can make with that ingridient   
+## APIs Used
+- API 1 - [_TheMealDB_](https://www.themealdb.com/api.php)
+- API 2 - [_Foodish_](https://github.com/surhud004/Foodish#readme)
+- API 3 - [_Flickr_](https://www.flickr.com/services/api/)
 
 
+## Screenshot
+### Food Junkies:
+![Initial-display](./assets/screenshots/main.png)
 
-    -The user selects (and de-selects) what categories they are "in the mood for".
-    The application pulls 1-2 restaurants for each category based on REVIEWS (or some other criteria). 
+
+## Features
+Ready Features:
+1. **Show possible recipes according to the ingredient the user searches**
+- Allows to view the recipes ingredients and measures according to the specific ingredient the user searches for.
+       ![Initial-display](./assets/screenshots/1.png)
+       ![Initial-display](./assets/screenshots/1.2.png)
+
+
+2. **Allows the user to select the amount of recipes he wants to be displayed**
+- In case there is a great amount of recipes including the ingredient the users wants to use, the user will have the ability to select how many recipes he wants to be displayed.      ![Initial-display](./assets/screenshots/2.png)
+
+3. **Youtube recipe tutorials**
+- Allows the user to view a youtube video that shows how to make the recipe he chooses step by step.
+    ![Initial-display](./assets/screenshots/3.png)
+
+4. **Validate ingredient** 
+- In case the ingredient the users searched for isn't available, they will get a message displaying: "There are no recipe's in our database with <ingredient>."
+    ![Initial-display](./assets/screenshots/4.png)
+
+5. **Validate Recipes**
+- In case the recipe the users select isn't available, they will get a message displaying: "There are presently no recipes including <ingredient>."
+    ![Initial-display](./assets/screenshots/5.png)    
     
-    -The user can click on a restaurant and be provided with a menu. 
-    
-    -The user can save spots that they like.
+6. **Allows to save the recipes the user likes**
+- Allows the user to save the recipe by clicking save.
+    ![Initial-display](./assets/screenshots/6.png)
+    ![Initial-display](./assets/screenshots/6.2.png)
+
+
+7. **Allows to unsave the recipes the user doesn't want stored anymore**
+    ![Initial-display](./assets/screenshots/7.png)
+    ![Initial-display](./assets/screenshots/7.2.png)
+
+
+## Project Status
+Project is: _in progress_
+
+
+## Room for Improvement
+Room for improvement:
+- TBD
+
+To do:
+- Add an API that will allow the user to listen to music while they cook the recipe they decided to use.
