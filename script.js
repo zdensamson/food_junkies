@@ -126,11 +126,12 @@ function displayIng(searchTerm){
       for(i=0; i<validIng.length; i++){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
+        ingEl.classList.add("ingredient");
         ingEl.classList.add("list-item");
 
         var ingName = document.createElement("p");
+        ingName.classList.add("p-style")
         ingName.classList.add("ingredient-name")
-        
         ingName.textContent = validIng[i];
       
         var ingBtnEl = document.createElement("button");
@@ -211,6 +212,7 @@ function displayRecipes(apiData, ingredient){
   
         var recipeBtnEl = document.createElement("button");
         recipeBtnEl.id = "rec-detail-btn";
+        recipeBtnEl.classList.add("btn")
         recipeBtnEl.textContent = "Get Details";
   
         recipe.appendChild(recipeName);
@@ -244,6 +246,7 @@ function largeRecNum(ingredient){
 
   var recBtnEl = document.createElement("button");
   recBtnEl.classList.add("recipe-num")
+  recBtnEl.classList.add("btn")
   recBtnEl.textContent = "Generate desired # of recipes"
 
   recFormEl.appendChild(recTextEl);

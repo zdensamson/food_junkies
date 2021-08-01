@@ -52,6 +52,8 @@ header h1 {
 .ingredient, #recipe-card {
   margin-right: 2px;
   margin-bottom: 2px;
+  display: grid;
+  justify-content: center;
 }
 
 #rec-name {
@@ -102,7 +104,6 @@ justify-content: center;
 .btn {
   font-size: 1.3rem;
   text-decoration:none;
-  padding: 6px 5px;
   width: 100%;
   display: block;
   margin: 5px 0;
