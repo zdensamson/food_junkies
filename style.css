@@ -14,6 +14,8 @@
 body {
     font-family: 'Oswald', sans-serif;
     background-image: linear-gradient(to right, var(--orange-yellow), var(--french-raspberry) );
+    background-repeat: no-repeat;
+    background-size: contain;
     margin: 0;
     padding: 0;
 }
@@ -41,9 +43,12 @@ header h1 {
     max-height: 100%;
     max-width: 100%;
 }
+
 .headers {
   background-color: var(--street-teal);
+  height: fit-content;
 }
+
 .ingredient, #recipe-card {
   margin-right: 2px;
   margin-bottom: 2px;
@@ -52,6 +57,12 @@ header h1 {
 #rec-name {
   word-wrap: break-word;
 }
+
+#randomImgDivtest img{
+  max-height: 100%;
+  max-width: 100%;
+}
+
 /*
 #headerImg {
   max-height: 100%;
@@ -59,17 +70,17 @@ header h1 {
 }
 */
 
+
 .simple-border {
     display: flex;
     justify-content: center;
     border-style: solid;
     border-width: 3px;
     border-radius: 5px;
-}
+} 
 
 #ingList,
 #recipeList{
-background-color: var(--mint-cream);
 flex-wrap: wrap;
 justify-content: center;
 /* max-width: 100%; */
@@ -79,6 +90,13 @@ justify-content: center;
 #ingInput {
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#ing-search {
+  display: flex;
+    justify-self: center;
+    background-color: blanchedalmond;
+    width: -webkit-fill-available;
 }
 
 .btn {
@@ -112,6 +130,20 @@ justify-content: center;
     width: 40%;
     height: 30%;
   }
+
+  /* Recipe style */
+
+.ingredient-name {
+  font-family: 'oswald', sans-serif;
+  justify-content: center;
+}
+
+  .subtitle {
+    font-family: 'oswald', sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+
 
 /* Table styling */
 table {
@@ -148,16 +180,16 @@ table {
     margin-bottom: 10px;
     padding: 1.5%;
     border-radius: var(--border-radius);
-    background-color: var(--light-black);
+    background-color: var(--french-raspberry);
     color: var(--primary);
     text-decoration: none;
   }
   
   .list-item:hover {
-    background-color: var(--black);
+    background-color: var(--street-teal);
   }
   
-  .ingredients {
+  .ingredient {
     flex-wrap: wrap;
   }
 
@@ -167,10 +199,11 @@ table {
     margin: 0 0 20px 0;
     border: 3px solid var(--black);
     border-radius: var(--border-radius);
+    background-color: var(--street-teal);
   }
   
   .card-header {
-    color: var(--primary);
+    color: var(--street-teal);
     background-color: var(--black);
     padding: 2.5%;
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;

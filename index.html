@@ -16,42 +16,56 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<!--- save point -->
 <body id="app" class="flex-column min-100-vh">
 
     <header class="hero">
         <!-- <h1>  </h1> -->
      <img src="./images/Untitled.png" alt="headerimg"/>
+    
     </header>
 
-<main class="justify-space-between">
+<main class="flex-row justify-space-between">
     <!-- accepts user inputs -->
     <div class="col-12 col-md-4">
-            <div id="ingInput" class="simple-border">
+
+        <div class="card">
+            <h3 class="card-header subtitle text-uppercase"> Search By Ingredient</h3>
+            <div id="ingInput" class="list-group">
                 <input type="text" id="ing-search">
                 <button id="search-btn" class="button btn">Search</button>
                 <button id="get-saved-rec" class="btn">Get Saved Recipes</button>
                 <button id="delete-rec" class="btn">Delete Saved Recipes</button>
             </div>
+        </div>
         
         <!-- Div to store ingredients -->
-            <h2 class="simple-border headers">Ingredients</h2>
-            <div id="ingList" class="simple-border seven">
+        <div class="card">
+            <h2 class="subtitle headers">Ingredients</h2>
+            <div id="ingList" class="seven">
+            </div>
+        </div>
+
+            <!-- random image from lorem/flckr.com -->
+            <div id="randomImgDivtest" class="card simple-border">
+                <img src="https://loremflickr.com/g/320/240/food" alt="foodimg">
             </div>
     </div>
         
     <!-- Div to store recipes -->
     
-        <h2 class="simple-border headers">Recipes</h2>
-        <div id="recipeList" class="simple-border seven list-group">
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <h2 class="subtitle">Recipes</h2>
+            <div id="recipeList" class=" list-group">
+            </div>
         </div>
-    
+    </div>
+        
     <!-- Appends random image of food to the page -->
     <div id="randomImg">
     </div>
-    <!-- random image from lorem/flckr.com -->
-    <div id="randomImgDivtest" class="simple-border">
-        <img src="https://loremflickr.com/g/320/240/food" alt="foodimg">
-    </div>
+
     
     <!-- MODAL -->
     <div class="w3-container">

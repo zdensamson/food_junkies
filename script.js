@@ -126,13 +126,15 @@ function displayIng(searchTerm){
       for(i=0; i<validIng.length; i++){
         var ingEl = document.createElement("div");
         ingEl.setAttribute("id", i);
-        ingEl.classList.add("ingredient");
+        ingEl.classList.add("list-item");
 
         var ingName = document.createElement("p");
         ingName.classList.add("ingredient-name")
+        
         ingName.textContent = validIng[i];
       
         var ingBtnEl = document.createElement("button");
+        ingBtnEl.classList.add("btn")
         ingBtnEl.textContent = "Get recipe(s)";
 
         ingEl.appendChild(ingName);
@@ -265,6 +267,7 @@ function selectRecNum(event){
 
     var recipeBtnEl = document.createElement("button");
     recipeBtnEl.id = "rec-detail-btn";
+    recipeBtnEl.classList.add("btn")
     recipeBtnEl.textContent = "Get Details";
 
     recipe.appendChild(recipeName);
