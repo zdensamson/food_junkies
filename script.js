@@ -212,7 +212,7 @@ function displayRecipes(apiData, ingredient){
   
         var recipeBtnEl = document.createElement("button");
         recipeBtnEl.id = "rec-detail-btn";
-        recipeBtnEl.classList.add("btn")
+        recipeBtnEl.classList.add("btn");
         recipeBtnEl.textContent = "Get Details";
   
         recipe.appendChild(recipeName);
@@ -270,7 +270,7 @@ function selectRecNum(event){
 
     var recipeBtnEl = document.createElement("button");
     recipeBtnEl.id = "rec-detail-btn";
-    recipeBtnEl.classList.add("btn")
+    recipeBtnEl.classList.add("btn");
     recipeBtnEl.textContent = "Get Details";
 
     recipe.appendChild(recipeName);
@@ -442,6 +442,7 @@ function loadRecipe(event){
 
       var recipeBtnEl = document.createElement("button");
       recipeBtnEl.id = "rec-detail-btn";
+      recipeBtnEl.classList.add("btn");
       recipeBtnEl.textContent = "Get Details";
 
       recipe.appendChild(recipeName);
