@@ -20,7 +20,6 @@
 ## APIs Used
 - API 1 - [_TheMealDB_](https://www.themealdb.com/api.php)
 - API 2 - [_Foodish_](https://github.com/surhud004/Foodish#readme)
-- API 3 - [_Flickr_](https://www.flickr.com/services/api/)
 
 
 ## Screenshot
@@ -42,22 +41,24 @@ Ready Features:
 3. **Youtube recipe tutorials**
 - Allows the user to view a youtube video that shows how to make the recipe he chooses step by step.
     ![Initial-display](./assets/screenshots/3.png)
+    
+4. **Display random food image each time the user refreshes the page**    
 
-4. **Validate ingredient** 
+5. **Validate ingredient** 
 - In case the ingredient the users searched for isn't available, they will get a message displaying: "There are no recipe's in our database with <ingredient>."
     ![Initial-display](./assets/screenshots/4.png)
 
-5. **Validate Recipes**
+6. **Validate Recipes**
 - In case the recipe the users select isn't available, they will get a message displaying: "There are presently no recipes including <ingredient>."
     ![Initial-display](./assets/screenshots/5.png)    
     
-6. **Allows to save the recipes the user likes**
+7. **Allows to save the recipes the user likes**
 - Allows the user to save the recipe by clicking save.
     ![Initial-display](./assets/screenshots/6.png)
     ![Initial-display](./assets/screenshots/6.2.png)
 
 
-7. **Allows to unsave the recipes the user doesn't want stored anymore**
+8. **Allows to unsave the recipes the user doesn't want stored anymore**
     ![Initial-display](./assets/screenshots/7.png)
     ![Initial-display](./assets/screenshots/7.2.png)
 
